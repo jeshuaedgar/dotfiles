@@ -1,0 +1,8 @@
+# macOS specific files
+.DS_Store
+
+# node
+node_modules/
+
+# env files
+.env*
