@@ -4,6 +4,10 @@
 [includeIf "gitdir:~/workspace/github.com/"]
   path = ~/.config/git/personal.gitconfig
 
+[user]
+  name = "jeshuaedgar"
+  email = "67895779+jeshuaedgar@users.noreply.github.com"
+
 [pull]
 	rebase = true
 [init]
