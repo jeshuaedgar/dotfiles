@@ -9,6 +9,10 @@ type = "archive"
 url = "https://github.com/romkatv/powerlevel10k/archive/v1.20.0.tar.gz"
 exact = true
 stripComponents = 1
+[".oh-my-zsh/plugins/pyautoenv"]
+type = "archive"
+url = "https://github.com/hsaunders1904/pyautoenv/archive/master.tar.gz"
+stripComponents = 1
 [".config/nvim"]
 type = "git-repo"
 url = "git@github.com:jeshuaedgar/lazyvim.git"
