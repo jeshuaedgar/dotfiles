@@ -1,0 +1,13 @@
+[includeIf "gitdir:~/workspace/dev.azure.com/"]
+  path = ~/.config/git/work.gitconfig
+
+[includeIf "gitdir:~/workspace/github.com/"]
+  path = ~/.config/git/personal.gitconfig
+
+[pull]
+	rebase = true
+[init]
+	defaultBranch = main
+
+[core]
+  excludesfile = ~/.config/git/.gitignore
