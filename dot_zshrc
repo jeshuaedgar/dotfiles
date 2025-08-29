@@ -57,9 +57,6 @@ if [[ "$TERM_PROGRAM" == "ghostty" ]]; then
     export TERM=xterm-256color
 fi
 
-# load bob completions
-fpath+=~/.zfunc
-
 autoload -Uz compinit && compinit
 
 export EDITOR=nvim
