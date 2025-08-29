@@ -20,7 +20,6 @@ packages:
       - "lazygit"
       - "librsvg"
       - "luarocks"
-      - "neofetch"
       - "neovim"
       - "node"
       - "nuget"
@@ -36,6 +35,7 @@ packages:
       - "trivy"
       - "uv"
       - "wget"
+      - "mise"
     casks:
       - "alacritty"
       - "amethyst"
