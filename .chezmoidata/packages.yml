@@ -15,6 +15,7 @@ packages:
       - "gnupg"
       - "go"
       - "goose"
+      - "grex"
       - "helm"
       - "htop"
       - "lazygit"
