@@ -1,5 +1,5 @@
 [tools]
-node = 'latest'
-golang = 'latest'
-neovim = 'nightly'
-python = 'latest'
+node = "latest"
+golang = "latest"
+neovim = "nightly"
+python = "latest"
