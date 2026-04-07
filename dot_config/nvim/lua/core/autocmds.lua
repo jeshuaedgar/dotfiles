@@ -149,3 +149,20 @@ vim.api.nvim_create_autocmd("FileType", {
 		pcall(vim.treesitter.start, ev.buf)
 	end,
 })
+
+-- Chezmoi: detect template files and set filetype
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+	group = augroup("chezmoi_ft"),
+	pattern = vim.fn.expand("~") .. "/.local/share/chezmoi/*",
+	callback = function(ev)
+		-- Strip .tmpl extension for filetype detection
+		local name = vim.fn.fnamemodify(ev.match, ":t")
+		if name:match("%.tmpl$") then
+			local real_name = name:gsub("%.tmpl$", "")
+			local ft = vim.filetype.match({ filename = real_name })
+			if ft then
+				vim.bo[ev.buf].filetype = ft
+			end
+		end
+	end,
+})

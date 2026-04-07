@@ -38,6 +38,7 @@ return {
 				"vim",
 				"vimdoc",
 				"yaml",
+				"gotmpl",
 			})
 
 			-- Disable treesitter highlight for powershell
