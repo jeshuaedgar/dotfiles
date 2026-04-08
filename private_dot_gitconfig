@@ -1,0 +1,15 @@
+[user]
+  name = "jeshuaedgar"
+  email = "67895779+jeshuaedgar@users.noreply.github.com"
+
+[pull]
+	rebase = true
+
+[init]
+	defaultBranch = main
+
+[core]
+  excludesfile = ~/.config/git/.gitignore
+
+[alias]
+	zip = archive HEAD -o
