@@ -1,0 +1,27 @@
+packages:
+  darwin:
+    brews:
+      - age
+      - bat
+      - chezmoi
+      - curl
+      - fd
+      - ffmpeg
+      - fmt
+      - fzf
+      - gcc
+      - gd
+      - gh
+      - htop
+      - jq
+      - lazygit
+      - mise
+      - neovim
+      - powershell
+      - ripgrep
+      - sqlc
+      - thefuck
+      - tmux
+      - tree
+      - tree-sitter-cli
+      - uv
