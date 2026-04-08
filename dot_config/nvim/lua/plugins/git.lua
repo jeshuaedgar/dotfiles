@@ -48,61 +48,63 @@ return {
 		keys = { { "<leader>gg", "<cmd>LazyGit<cr>", desc = "LazyGit" } },
 		dependencies = { "nvim-lua/plenary.nvim" },
 		config = function()
-			-- Pass nvim colorscheme colors to lazygit
-			local theme = {
-				[241] = { fg = "241" },
-				activeBorderColor = { fg = "Keyword", bold = true },
-				inactiveBorderColor = { fg = "FloatBorder" },
-				optionsTextColor = { fg = "Function" },
-				selectedLineBgColor = { bg = "Visual" },
-				cherryPickedCommitBgColor = { fg = "Identifier" },
-				cherryPickedCommitFgColor = { fg = "Function" },
-				unstagedChangesColor = { fg = "DiagnosticError" },
-				defaultFgColor = { fg = "Normal" },
-				searchingActiveBorderColor = { fg = "MatchParen", bold = true },
-			}
-
-			local resolved = {}
-			for key, def in pairs(theme) do
-				for attr, val in pairs(def) do
-					if attr ~= "bold" then
-						local hl = vim.api.nvim_get_hl(0, { name = val, link = false })
-						local color = hl[attr == "fg" and "fg" or "bg"]
-						if color then
-							def[attr] = string.format("#%06x", color)
-						end
-					end
-				end
-				resolved[key] = def
-			end
-
-			vim.g.lazygit_config_file_path = {}
-			vim.g.lazygit_floating_window_scaling_factor = 0.9
-			vim.g.lazygit_use_custom_config_file_path = 0
-
-			-- Set the theme via environment
 			local config_dir = vim.fn.stdpath("data") .. "/lazygit"
 			vim.fn.mkdir(config_dir, "p")
 
-			local yaml_lines = { "gui:", "  theme:" }
-			for key, def in pairs(resolved) do
-				local parts = {}
-				for attr, val in pairs(def) do
-					if attr == "bold" then
-						table.insert(parts, '"bold"')
-					else
-						table.insert(parts, '"' .. val .. '"')
-					end
-				end
-				table.insert(yaml_lines, "    " .. key .. ":")
-				for _, p in ipairs(parts) do
-					table.insert(yaml_lines, "      - " .. p)
+			-- Moonfly palette
+			local fg = "#bdbdbd"
+			local green = "#8cc85f"
+			local yellow = "#e3c78a"
+			local blue = "#80a0ff"
+			local cyan = "#79dac8"
+			local grey = "#949494"
+			local red = "#ff5d5d"
+
+			local theme = {
+				activeBorderColor = { green, "bold" },
+				inactiveBorderColor = { grey },
+				optionsTextColor = { blue },
+				selectedLineBgColor = { "#303030" },
+				cherryPickedCommitBgColor = { "#303030" },
+				cherryPickedCommitFgColor = { cyan },
+				unstagedChangesColor = { red },
+				defaultFgColor = { fg },
+				searchingActiveBorderColor = { yellow, "bold" },
+			}
+
+			local lines = {
+				"gui:",
+				"  nerdFontsVersion: '3'",
+				"  border: rounded",
+				"  showBottomLine: false",
+				"  theme:",
+			}
+			for key, values in pairs(theme) do
+				table.insert(lines, "    " .. key .. ":")
+				for _, v in ipairs(values) do
+					table.insert(lines, '      - "' .. v .. '"')
 				end
 			end
 
-			local config_path = config_dir .. "/theme.yml"
-			vim.fn.writefile(yaml_lines, config_path)
-			vim.env.LG_CONFIG_FILE = config_path .. "," .. (vim.env.LG_CONFIG_FILE or "")
+			-- Author and branch colors
+			vim.tbl_map(function(l)
+				table.insert(lines, l)
+			end, {
+				"  authorColors:",
+				'    "*": "' .. blue .. '"',
+				"  branchColors:",
+				'    "*": "' .. cyan .. '"',
+			})
+
+			local config_path = config_dir .. "/config.yml"
+			vim.fn.writefile(lines, config_path)
+
+			local user_config = vim.fn.expand("~/Library/Application Support/lazygit/config.yml")
+			if vim.fn.filereadable(user_config) == 1 then
+				vim.env.LG_CONFIG_FILE = config_path .. "," .. user_config
+			else
+				vim.env.LG_CONFIG_FILE = config_path
+			end
 		end,
 	},
 
