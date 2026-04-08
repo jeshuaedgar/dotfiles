@@ -1,0 +1,42 @@
+layouts:
+  - fullscreen
+  - two-pane
+
+# Custom mod
+mod1:
+  - option
+  - command
+
+# Layout settings
+cycle-layout:
+  mod: mod1
+  key: "]"
+cycle-layout-backward:
+  mod: mod1
+  key: "["
+
+# Shrink settings
+shrink-main:
+  mod: mod1
+  key: h
+expand-main:
+  mod: mod1
+  key: l
+
+# Cycle focus
+focus-ccw:
+  mod: mod1
+  key: j
+focus-cw:
+  mod: mod1
+  key: k
+
+# Swap screns
+swap-screen-cw:
+  mod: mod1
+  key: s
+
+# Toggle float status
+toggle-float:
+  mod: mod1
+  key: f
