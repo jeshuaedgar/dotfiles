@@ -26,3 +26,5 @@ alias nv="nvim"
 
 # activate mise
 eval "$(mise activate zsh)"
+
+export TERM=xterm-256color
