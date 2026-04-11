@@ -1,0 +1,13 @@
+{
+  "$schema": "https://raw.githubusercontent.com/sveltejs/mcp/refs/heads/main/packages/opencode/schema.json",
+  "mcp": {
+    "type": "local",
+    "enabled": true
+  },
+  "subagent": {
+    "enabled": true
+  },
+  "instructions": {
+    "enabled": true
+  }
+}

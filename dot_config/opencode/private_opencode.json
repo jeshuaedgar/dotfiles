@@ -1,0 +1,29 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "plugin": ["@sveltejs/opencode"],
+  "mcp": {
+    "context7": {
+      "command": ["npx", "-y", "@upstash/context7-mcp"],
+      "enabled": true,
+      "type": "local"
+    },
+    "cloudflare": {
+      "enabled": true,
+      "type": "remote",
+      "url": "https://bindings.mcp.cloudflare.com/mcp",
+      "oauth": {}
+    },
+    "sentry": {
+      "type": "remote",
+      "url": "https://mcp.sentry.dev/mcp",
+      "enabled": true,
+      "oauth": {}
+    },
+    "posthog": {
+      "type": "remote",
+      "url": "https://mcp-eu.posthog.com/mcp",
+      "enabled": true,
+      "oauth": {}
+    }
+  }
+}
