@@ -3,7 +3,7 @@ local function augroup(name)
 end
 
 -- Toggle cursorline only in active window
-vim.api.nvim_create_autocmd({ "VimEnter", "WinEnter", "BufWinEnter", "VimLeave", "WinLeave", "BufWinLeave" }, {
+vim.api.nvim_create_autocmd({ "WinEnter", "BufWinEnter", "WinLeave", "BufWinLeave" }, {
 	group = augroup("toggle_cursorline"),
 	desc = "Toggle cursorline on focus",
 	pattern = "*",
@@ -26,14 +26,18 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 	group = augroup("trim_whitespace"),
 	desc = "Remove trailing whitespace on save",
 	pattern = "*",
-	command = "%s/\\s\\+$//e",
+	callback = function()
+		local view = vim.fn.winsaveview()
+		vim.cmd([[%s/\s\+$//e]])
+		vim.fn.winrestview(view)
+	end,
 })
 
 -- Highlight on yank
 vim.api.nvim_create_autocmd("TextYankPost", {
 	group = augroup("yank_highlight"),
 	callback = function()
-		vim.hl.on_yank({ timeout = 200 })
+		(vim.hl or vim.highlight).on_yank({ timeout = 200 })
 	end,
 })
 
@@ -107,9 +111,7 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
 	group = augroup("auto_reload"),
 	callback = function()
-		if vim.o.buftype ~= "nofile" then
-			vim.cmd("checktime")
-		end
+		vim.cmd("checktime")
 	end,
 })
 
@@ -121,7 +123,6 @@ vim.api.nvim_create_autocmd("BufReadPre", {
 		local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(ev.buf))
 		if ok and stats and stats.size > max_filesize then
 			vim.bo[ev.buf].syntax = ""
-			vim.cmd("syntax off")
 			pcall(vim.treesitter.stop, ev.buf)
 			vim.bo[ev.buf].undofile = false
 			vim.bo[ev.buf].swapfile = false
@@ -159,10 +160,18 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 		local name = vim.fn.fnamemodify(ev.match, ":t")
 		if name:match("%.tmpl$") then
 			local real_name = name:gsub("%.tmpl$", "")
-			local ft = vim.filetype.match({ filename = real_name })
+			local ft = vim.filetype.match({ filename = real_name, buf = ev.buf })
 			if ft then
 				vim.bo[ev.buf].filetype = ft
 			end
 		end
+	end,
+})
+
+-- Disable auto comment when returning new line
+vim.api.nvim_create_autocmd("FileType", {
+	group = augroup("no_auto_comment"),
+	callback = function()
+		vim.opt_local.formatoptions:remove({ "c", "r", "o" })
 	end,
 })
