@@ -25,3 +25,5 @@ packages:
       - tree
       - tree-sitter-cli
       - uv
+    casks:
+      - font-jetbrains-mono-nerd-font
