@@ -16,15 +16,33 @@ zstyle ':omz:update' mode disabled  # disable automatic updates
 
 plugins=(
   git
+  docker
+  docker-compose
 )
 
 source $ZSH/oh-my-zsh.sh
 
-# User configuration
+######################
+# User configuration #
+######################
+
+# neovim
 export EDITOR='nvim'
 alias nv="nvim"
+alias vim="nvim"
+alias nvconfig="cd ~/.config/nvim/ && nvim ."
 
 # activate mise
 eval "$(mise activate zsh)"
 
-export TERM=xterm-256color
+export LC_ALL=en_US.UTF-8
+export LC_CTYPE=en_US.UTF-8
+
+if [[ "$TERM_PROGRAM" == "ghostty" ]]; then
+  export TERM=xterm-256color
+fi
+
+autoload -Uz compinit && compinit
+
+# 1Password ssh-agent socket
+export SSH_AUTH_SOCK=~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
