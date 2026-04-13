@@ -1,0 +1,22 @@
+{{- if eq .chezmoi.os "darwin" -}}
+#!/bin/bash
+set -euo pipefail
+
+# Disable accent popup on key hold so keys repeat instead
+defaults write -g ApplePressAndHoldEnabled -bool false
+
+# Fastest repeat and very short delay
+defaults write -g KeyRepeat -int 1
+defaults write -g InitialKeyRepeat -int 10
+
+# Swap caps lock with escape
+/usr/bin/hidutil property --set '{
+  "UserKeyMapping": [
+    {
+      "HIDKeyboardModifierMappingSrc": 0x700000039,
+      "HIDKeyboardModifierMappingDst": 0x700000029
+    }
+  ]
+}'
+
+{{- end -}}

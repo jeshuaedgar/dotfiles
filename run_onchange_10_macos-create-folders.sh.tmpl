@@ -1,0 +1,7 @@
+{{- if eq .chezmoi.os "darwin" -}}
+#!/bin/bash
+set -euo pipefail
+
+mkdir -p ~/workspace/{work,personal}
+
+{{- end -}}

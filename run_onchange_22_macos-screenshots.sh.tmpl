@@ -1,0 +1,12 @@
+{{- if eq .chezmoi.os "darwin" -}}
+#!/bin/bash
+set -euo pipefail
+
+mkdir -p ~/Screenshots
+
+defaults write com.apple.screencapture location ~/Screenshots
+defaults write com.apple.screencapture "include-date" -bool "true"
+
+killall SystemUIServer
+
+{{- end -}}
