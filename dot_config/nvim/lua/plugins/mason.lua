@@ -36,6 +36,7 @@ return {
 
 				-- Formatters
 				"stylua",
+				"oxfmt",
 				"prettierd",
 				"prettier",
 				"black",
@@ -45,6 +46,7 @@ return {
 
 				-- Linters
 				"eslint_d",
+				"oxlint",
 				"ruff",
 				"golangci-lint",
 				"markdownlint-cli2",
