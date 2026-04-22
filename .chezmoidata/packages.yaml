@@ -27,3 +27,10 @@ packages:
       - uv
     casks:
       - font-jetbrains-mono-nerd-font
+      - ghostty
+      - visual-studio-code
+      - docker-desktop
+      - 1password
+      - localsend
+      - spotify
+      - nikitabobko/tap/aerospace
