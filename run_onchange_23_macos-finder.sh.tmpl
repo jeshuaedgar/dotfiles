@@ -1,0 +1,16 @@
+{{- if eq .chezmoi.os "darwin" -}}
+#!/bin/bash
+set -euo pipefail
+
+defaults write com.apple.finder "ShowPathbar" -bool "true"
+defaults write com.apple.finder "_FXSortFoldersFirst" -bool "true"
+
+# Search folder you are in
+defaults write com.apple.finder "FXDefaultSearchScope" -string "SCcf"
+defaults write com.apple.finder "FXRemoveOldTrashItems" -bool "true"
+
+defaults write NSGlobalDomain "NSDocumentSaveNewDocumentsToCloud" -bool "false"
+defaults write com.apple.finder "ShowStatusBar" -bool "true"
+
+killall Finder
+{{- end -}}
