@@ -6,6 +6,7 @@ mkdir -p ~/Screenshots
 
 defaults write com.apple.screencapture location ~/Screenshots
 defaults write com.apple.screencapture "include-date" -bool "true"
+defaults write com.apple.screencapture "disable-shadow" -bool "true"
 
 killall SystemUIServer
 

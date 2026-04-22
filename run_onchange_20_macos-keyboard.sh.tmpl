@@ -6,8 +6,8 @@ set -euo pipefail
 defaults write -g ApplePressAndHoldEnabled -bool false
 
 # Fastest repeat and very short delay
-defaults write -g KeyRepeat -int 1
-defaults write -g InitialKeyRepeat -int 10
+defaults write -g KeyRepeat -int 3
+defaults write -g InitialKeyRepeat -int 25
 
 # Swap caps lock with escape
 /usr/bin/hidutil property --set '{
@@ -18,5 +18,8 @@ defaults write -g InitialKeyRepeat -int 10
     }
   ]
 }'
+
+# Enable navigating menu's with keyboard
+defaults write NSGlobalDomain AppleKeyboardUIMode -int "2"
 
 {{- end -}}
