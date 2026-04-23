@@ -25,6 +25,8 @@ packages:
       - tree
       - tree-sitter-cli
       - uv
+      - rtk
+      - opencode
     casks:
       - karabiner-elements
       - font-jetbrains-mono-nerd-font
