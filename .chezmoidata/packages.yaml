@@ -28,7 +28,6 @@ packages:
       - rtk
       - opencode
     casks:
-      - karabiner-elements
       - font-jetbrains-mono-nerd-font
       - ghostty
       - visual-studio-code
