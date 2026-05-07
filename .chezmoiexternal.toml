@@ -10,3 +10,9 @@ type = "archive"
 url = "https://github.com/romkatv/powerlevel10k/archive/refs/tags/v1.20.0.tar.gz"
 exact = true
 stripComponents = 1
+
+[".oh-my-zsh/plugins/pyautoenv"]
+type = "archive"
+url = "https://github.com/hsaunders1904/pyautoenv/archive/refs/tags/v0.7.1.zip"
+exact = true
+stripComponents = 1
