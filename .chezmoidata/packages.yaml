@@ -27,6 +27,10 @@ packages:
       - uv
       - rtk
       - opencode
+      - pnpm
+      - make
+      - poetry
+      - direnv
     casks:
       - font-jetbrains-mono-nerd-font
       - ghostty
@@ -36,3 +40,4 @@ packages:
       - localsend
       - spotify
       - nikitabobko/tap/aerospace
+      - beekeeper-studio
