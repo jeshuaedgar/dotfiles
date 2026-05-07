@@ -2,3 +2,6 @@
 .oh-my-zsh/cache/**
 .oh-my-zsh/log/**
 **/*.zwc
+
+# nvim
+.config/nvim/lazy-lock.json
