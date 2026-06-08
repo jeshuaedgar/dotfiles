@@ -13,3 +13,9 @@
 
 [alias]
 	zip = archive HEAD -o
+
+[includeIf "gitdir:~/workspace/work/"]
+	path = ~/.gitconfig-work
+
+[includeIf "gitdir:~/workspace/personal/"]
+	path = ~/.gitconfig-personal
