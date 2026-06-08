@@ -28,9 +28,7 @@ packages:
       - uv
       - rtk
       - opencode
-      - pnpm
       - make
-      - poetry
       - direnv
       - lefthook
       - lighthouse
