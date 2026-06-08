@@ -1,0 +1,33 @@
+{{- if eq .chezmoi.os "darwin" -}}
+#!/bin/bash
+set -euo pipefail
+
+keys="$(ssh-add -L 2>/dev/null || true)"
+
+work_key=""
+personal_key=""
+
+while IFS= read -r line; do
+  case "$line" in
+    *"GitHub (Work)"|*"Github (Work)")
+      work_key="$line"
+      ;;
+    *"GitHub (Personal)"|*"Github (Personal)")
+      personal_key="$line"
+      ;;
+  esac
+done <<< "$keys"
+
+mkdir -p "$HOME/.ssh"
+
+if [ -n "$work_key" ]; then
+  printf '%s\n' "$work_key" > "$HOME/.ssh/github-work.pub"
+  chmod 600 "$HOME/.ssh/github-work.pub"
+fi
+
+if [ -n "$personal_key" ]; then
+  printf '%s\n' "$personal_key" > "$HOME/.ssh/github-personal.pub"
+  chmod 600 "$HOME/.ssh/github-personal.pub"
+fi
+
+{{- end -}}
