@@ -4,6 +4,11 @@ set -euo pipefail
 
 defaults write com.apple.menuextra.clock "DateFormat" -string "\"EEE HH:mm:ss\""
 defaults write com.apple.menuextra.clock "FlashDateSeparators" -bool "true"
+defaults write com.apple.menuextra.clock "Show24Hour" -bool "true"
+defaults write com.apple.menuextra.clock "ShowAMPM" -bool "false"
+defaults write com.apple.menuextra.clock "ShowDate" -int 0
+defaults write com.apple.menuextra.clock "ShowDayOfWeek" -bool "true"
+defaults write com.apple.menuextra.clock "ShowSeconds" -bool "true"
 
 killall SystemUIServer
 {{- end -}}
