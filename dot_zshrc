@@ -85,3 +85,6 @@ fi
 
 autoload -Uz compinit && compinit
 
+# Uv and Node CA Certs
+export UV_SYSTEM_CERTS=1
+export NODE_USE_SYSTEM_CA=1
