@@ -1,4 +1,18 @@
 [tools]
+# runtimes
+bun = "latest"
+go = "latest"
 node = "lts"
 python = "latest"
-go = "latest"
+rust = "latest"
+
+# package managers
+pnpm = "latest"
+uv = "latest"
+poetry = "latest"
+
+# global npm CLI tools
+"npm:wrangler" = "latest"
+"npm:oxfmt" = "latest"
+"npm:oxlint" = "latest"
+"npm:@biomejs/biome" = "latest"
