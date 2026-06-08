@@ -20,7 +20,7 @@ outer.right = 8
 
 [mode.main.binding]
 cmd-alt-leftSquareBracket = 'layout accordion horizontal vertical'
-cmd-alt-rightSquareBracket = 'layout tiles horizontal'
+cmd-alt-rightSquareBracket = 'layout tiles horizontal vertical'
 
 alt-h = 'focus left'
 alt-j = 'focus down'
