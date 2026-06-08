@@ -12,6 +12,7 @@ packages:
       - gcc
       - gd
       - gh
+      - gpg
       - htop
       - jq
       - lazygit
