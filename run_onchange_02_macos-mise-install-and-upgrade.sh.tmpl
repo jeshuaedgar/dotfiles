@@ -1,0 +1,22 @@
+{{- if eq .chezmoi.os "darwin" -}}
+#!/bin/bash
+set -euo pipefail
+
+if ! command -v mise >/dev/null 2>&1; then
+  echo "mise is not installed; skipping mise tool sync"
+  exit 0
+fi
+
+MISE_CONFIG="$HOME/.config/mise/config.toml"
+
+if [ ! -f "$MISE_CONFIG" ]; then
+  echo "No mise config found at $MISE_CONFIG; skipping mise tool sync"
+  exit 0
+fi
+
+# Ensure all configured tools are installed, then upgrade to latest
+# versions within the configured version constraints.
+mise install
+mise upgrade
+
+{{- end -}}
