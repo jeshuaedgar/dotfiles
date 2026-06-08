@@ -31,6 +31,8 @@ packages:
       - make
       - poetry
       - direnv
+      - lefthook
+      - lighthouse
     casks:
       - font-jetbrains-mono-nerd-font
       - ghostty
