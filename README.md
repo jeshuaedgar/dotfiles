@@ -11,5 +11,5 @@ xcode-select --install
 ## install
 
 ```bash
-sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply jeshuaedgar
+sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply --ssh jeshuaedgar
 ```
