@@ -2,6 +2,12 @@
 
 - here are my dotfiles managed with chezmoi
 
+## prereqs (macOS)
+
+```bash
+xcode-select --install
+```
+
 ## install
 
 ```bash
