@@ -32,6 +32,8 @@ packages:
       - direnv
       - lefthook
       - lighthouse
+      - csvlens
+      - trippy
     casks:
       - font-jetbrains-mono-nerd-font
       - ghostty
