@@ -42,3 +42,6 @@ packages:
       - spotify
       - nikitabobko/tap/aerospace
       - beekeeper-studio
+      - stats
+      - typewhisper/tap/typewhisper
+      - caffeine
