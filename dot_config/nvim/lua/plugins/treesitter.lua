@@ -1,6 +1,6 @@
 return {
   {
-    "nvim-treesitter",
+    "nvim-treesitter/nvim-treesitter",
     keys = {
       { "<cr>", desc = "Increment Selection" },
       { "<bs>", desc = "Decrement Selection", mode = "x" },

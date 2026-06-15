@@ -9,7 +9,7 @@ return {
   },
 
   -- formatter needs LSP fallback
-  -- lsp server needs seperate settings
+  -- lsp server needs separate settings
   {
     "neovim/nvim-lspconfig",
     opts = {
@@ -42,7 +42,7 @@ return {
   {
     "conform.nvim",
     opts = {
-      formatters_by_ft = { ps = { "powershell_es", lsp_format = "prefer" } },
+      formatters_by_ft = { ps1 = { lsp_format = "prefer" } },
     },
   },
 }

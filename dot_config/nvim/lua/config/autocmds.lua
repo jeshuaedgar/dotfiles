@@ -27,5 +27,10 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 vim.api.nvim_create_autocmd("BufWritePre", {
   desc = "remove whitespaces on save",
   pattern = "*",
-  command = "%s/\\s\\+$//e",
+  callback = function()
+    if vim.tbl_contains({ "diff", "gitcommit", "markdown" }, vim.bo.filetype) then
+      return
+    end
+    vim.cmd([[%s/\s\+$//e]])
+  end,
 })

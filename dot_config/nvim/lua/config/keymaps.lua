@@ -9,7 +9,7 @@ end
 
 local function unmap(mode, lhs)
   mode = mode or { "n" }
-  vim.keymap.del(mode, lhs)
+  pcall(vim.keymap.del, mode, lhs)
 end
 
 -- general
