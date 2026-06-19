@@ -34,6 +34,7 @@ packages:
       - lighthouse
       - csvlens
       - trippy
+      - oxker
     casks:
       - font-jetbrains-mono-nerd-font
       - ghostty
@@ -47,3 +48,4 @@ packages:
       - stats
       - typewhisper/tap/typewhisper
       - caffeine
+      - radix
