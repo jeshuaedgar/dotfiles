@@ -6,6 +6,8 @@ keys="$(ssh-add -L 2>/dev/null || true)"
 
 work_key=""
 personal_key=""
+azure_work_key=""
+azure_admin_key=""
 
 while IFS= read -r line; do
   case "$line" in
@@ -14,6 +16,12 @@ while IFS= read -r line; do
     ;;
   *"GitHub (Personal)" | *"Github (Personal)")
     personal_key="$line"
+    ;;
+  *"Azure DevOps (Work)" | *"Azure DevOps Work")
+    azure_work_key="$line"
+    ;;
+  *"Azure DevOps (Work Admin)" | *"Azure DevOps Work Admin" | *"Azure DevOps (Admin)")
+    azure_admin_key="$line"
     ;;
   esac
 done <<<"$keys"
@@ -32,6 +40,20 @@ if [ -n "$personal_key" ]; then
   chmod 600 "$HOME/.ssh/github-personal.pub"
 else
   rm -f "$HOME/.ssh/github-personal.pub"
+fi
+
+if [ -n "$azure_work_key" ]; then
+  printf '%s\n' "$azure_work_key" >"$HOME/.ssh/azure-devops-work.pub"
+  chmod 600 "$HOME/.ssh/azure-devops-work.pub"
+else
+  rm -f "$HOME/.ssh/azure-devops-work.pub"
+fi
+
+if [ -n "$azure_admin_key" ]; then
+  printf '%s\n' "$azure_admin_key" >"$HOME/.ssh/azure-devops-work-admin.pub"
+  chmod 600 "$HOME/.ssh/azure-devops-work-admin.pub"
+else
+  rm -f "$HOME/.ssh/azure-devops-work-admin.pub"
 fi
 
 {{- end -}}
