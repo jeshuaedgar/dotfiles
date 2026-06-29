@@ -49,3 +49,4 @@ packages:
       - typewhisper/tap/typewhisper
       - caffeine
       - radix
+      - bruno
