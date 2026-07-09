@@ -2,6 +2,25 @@
 #!/bin/bash
 set -euo pipefail
 
+retry() {
+  local attempts="$1"
+  local delay_seconds="$2"
+  shift 2
+
+  local i
+  for i in $(seq 1 "$attempts"); do
+    if "$@"; then
+      return 0
+    fi
+
+    if [ "$i" -lt "$attempts" ]; then
+      sleep "$delay_seconds"
+    fi
+  done
+
+  return 1
+}
+
 if ! command -v brew >/dev/null 2>&1; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
@@ -12,8 +31,13 @@ elif [ -x /usr/local/bin/brew ]; then
   eval "$(/usr/local/bin/brew shellenv)"
 fi
 
-# Install packages from data
-brew bundle --file=/dev/stdin <<'EOF'
+tmp_brewfile="$(mktemp)"
+cleanup() {
+  rm -f "$tmp_brewfile"
+}
+trap cleanup EXIT
+
+cat >"$tmp_brewfile" <<'EOF'
 {{ range .packages.darwin.brews -}}
 brew "{{ . }}"
 {{ end -}}
@@ -21,4 +45,10 @@ brew "{{ . }}"
 cask "{{ . }}"
 {{- end }}
 EOF
+
+retry 3 5 brew update
+
+if ! brew bundle check --file="$tmp_brewfile" --no-lock; then
+  retry 3 5 brew bundle --file="$tmp_brewfile" --no-lock
+fi
 {{- end -}}

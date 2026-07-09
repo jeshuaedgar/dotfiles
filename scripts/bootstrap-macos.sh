@@ -140,7 +140,7 @@ ensure_homebrew() {
 ensure_core_tools() {
   log "Installing core bootstrap tools (git, curl, chezmoi)..."
   retry 3 3 brew update >/dev/null
-  retry 3 3 brew install git curl chezmoi >/dev/null
+  retry 3 3 brew install git curl chezmoi
 }
 
 chezmoi_init_and_apply() {
@@ -175,12 +175,6 @@ run_self_checks() {
     log "Found external dependency: ~/.oh-my-zsh"
   else
     warn "~/.oh-my-zsh is missing. Re-run 'chezmoi apply --init'."
-  fi
-
-  if need_command op; then
-    log "Found command: op (1Password CLI)"
-  else
-    warn "1Password CLI (op) not found. Install it if you rely on 1Password SSH agent workflows."
   fi
 
   if ssh-add -L >/dev/null 2>&1; then
