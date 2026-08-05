@@ -48,7 +48,7 @@ EOF
 
 retry 3 5 brew update
 
-if ! brew bundle check --file="$tmp_brewfile" --no-lock; then
-  retry 3 5 brew bundle --file="$tmp_brewfile" --no-lock
+if ! brew bundle check --file="$tmp_brewfile"; then
+  retry 3 5 brew bundle install --file="$tmp_brewfile"
 fi
 {{- end -}}

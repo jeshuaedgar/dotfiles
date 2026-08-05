@@ -35,6 +35,10 @@ packages:
       - csvlens
       - trippy
       - oxker
+      - fallow
+      - fish
+      - fisher
+      - herdr
     casks:
       - font-jetbrains-mono-nerd-font
       - ghostty

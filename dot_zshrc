@@ -88,3 +88,9 @@ autoload -Uz compinit && compinit
 # Uv and Node CA Certs
 export UV_SYSTEM_CERTS=1
 export NODE_USE_SYSTEM_CA=1
+
+# --- CA bundle for corporate SSL inspection (az cli / python requests) ---
+export REQUESTS_CA_BUNDLE="$HOME/.certs/combined-ca-bundle.pem"
+export CURL_CA_BUNDLE="$HOME/.certs/combined-ca-bundle.pem"
+export SSL_CERT_FILE="$HOME/.certs/combined-ca-bundle.pem"
+export NODE_EXTRA_CA_CERTS="$HOME/.certs/combined-ca-bundle.pem"
