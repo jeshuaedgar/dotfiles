@@ -1,0 +1,237 @@
+// Zed keymap — ported from ~/.config/nvim (LazyVim). Leader = space
+//
+// Context depth matters: Zed picks the binding whose context matches deepest
+// in the focused element's stack. "Editor" beats "Workspace", so anything
+// that must override a Zed default has to live at "Editor" depth or deeper.
+[
+  // ==========================================================================
+  // Normal mode
+  // ==========================================================================
+  {
+    "context": "Editor && vim_mode == normal && !menu",
+    "bindings": {
+      "escape": "editor::Cancel", // clear search highlight / extra cursors
+      "backspace": "vim::FirstNonWhitespace", // <BS> -> ^
+      "shift-y": ["workspace::SendKeystrokes", "y $"], // Y -> y$
+      "x": ["workspace::SendKeystrokes", "\" _ x"], // delete without yanking
+      "shift-j": ["workspace::SendKeystrokes", "m z shift-j ` z"], // join, keep cursor
+
+      // buffer cycling (bufferline.nvim)
+      "tab": "pane::ActivateNextItem",
+      "shift-tab": "pane::ActivatePreviousItem"
+    }
+  },
+
+  // ==========================================================================
+  // Normal + visual
+  // ==========================================================================
+  {
+    "context": "VimControl && !menu",
+    "bindings": {
+      "+": "vim::Increment",
+      "-": "vim::Decrement",
+      "ctrl-d": ["vim::ScrollDown", { "center_cursor": true }], // <C-d>zz
+      "ctrl-u": ["vim::ScrollUp", { "center_cursor": true }] // <C-u>zz
+    }
+  },
+
+  // ==========================================================================
+  // Visual mode
+  // ==========================================================================
+  {
+    "context": "Editor && vim_mode == visual && !menu",
+    "bindings": {
+      "shift-k": "editor::MoveLineUp",
+      "shift-j": "editor::MoveLineDown",
+      "<": "editor::Outdent", // stays in visual mode
+      ">": "editor::Indent",
+      "p": ["workspace::SendKeystrokes", "p g v y"], // re-paste same text
+      "ctrl-c": "editor::Copy",
+      "space p": ["workspace::SendKeystrokes", "\" _ d shift-p"] // paste, no yank
+    }
+  },
+
+  // ==========================================================================
+  // Treesitter incremental selection (LazyVim: <CR> grow / <BS> shrink).
+  // <CR> works from normal mode too (it starts the selection); <BS> is scoped
+  // to the visual modes so the normal-mode <BS> -> ^ binding is never shadowed.
+  //
+  // "mode == full" is load-bearing: picker query editors (command palette,
+  // file finder) are Editors with no vim_mode key at all, and gpui evaluates
+  // `vim_mode != insert` as TRUE for a missing key — which would steal <CR>.
+  // ==========================================================================
+  {
+    "context": "Editor && mode == full && !menu && vim_mode != insert",
+    "bindings": {
+      "enter": "editor::SelectLargerSyntaxNode"
+    }
+  },
+  {
+    "context": "Editor && !menu && (vim_mode == visual || vim_mode == visual_line || vim_mode == visual_block)",
+    "bindings": {
+      "backspace": "editor::SelectSmallerSyntaxNode"
+    }
+  },
+
+  // ==========================================================================
+  // Leader keys (LazyVim muscle memory)
+  // ==========================================================================
+  {
+    "context": "(Editor && vim_mode == normal && !menu) || EmptyPane || SharedScreen",
+    "bindings": {
+      // find
+      "space space": "file_finder::Toggle",
+      "space f f": "file_finder::Toggle",
+      "space f b": "tab_switcher::Toggle",
+      "space ,": "tab_switcher::Toggle",
+      "space f p": "projects::OpenRecent",
+      "space f t": "terminal_panel::ToggleFocus",
+      "space e": "project_panel::ToggleFocus",
+
+      // search
+      "space /": "pane::DeploySearch",
+      "space s g": "pane::DeploySearch",
+      "space s s": "outline::Toggle",
+      "space s shift-s": "project_symbols::Toggle",
+
+      // buffers
+      "space b d": "pane::CloseActiveItem",
+      "space b o": "pane::CloseInactiveItems",
+
+      // code
+      "space c a": "editor::ToggleCodeActions",
+      "space c r": "editor::Rename",
+      "space c f": "editor::Format",
+      "space c d": "editor::Hover",
+
+      // diagnostics
+      "space x x": "diagnostics::Deploy",
+      "space x l": "zed::OpenLog",
+
+      // git
+      "space g g": "git_panel::ToggleFocus",
+      "space g b": "editor::ToggleGitBlameInline",
+
+      // windows
+      "space w v": "pane::SplitRight",
+      "space w s": "pane::SplitDown",
+      "space w d": "pane::CloseActiveItem",
+      "space w w": "workspace::ActivateNextPane",
+
+      "space q q": "workspace::CloseWindow"
+    }
+  },
+
+  // ==========================================================================
+  // Splits — mirrors the ghostty config.
+  //   ctrl+hjkl        goto_split
+  //   ctrl+a > hjkl    new_split          ctrl+a > f   toggle_split_zoom
+  //   ctrl+a > HJKL    (swap, zed extra)  ctrl+a > x   close_surface
+  //                                       ctrl+a > =   equalize_splits
+  // ==========================================================================
+  {
+    "context": "Workspace",
+    "bindings": {
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-j": "workspace::ActivatePaneDown",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-l": "workspace::ActivatePaneRight",
+
+      "ctrl-a h": "pane::SplitLeft",
+      "ctrl-a j": "pane::SplitDown",
+      "ctrl-a k": "pane::SplitUp",
+      "ctrl-a l": "pane::SplitRight",
+
+      "ctrl-a f": "workspace::ToggleZoom",
+      "ctrl-a x": "pane::CloseActiveItem",
+      "ctrl-a =": "workspace::ResetPaneSizes",
+
+      "ctrl-a shift-h": "workspace::SwapPaneLeft",
+      "ctrl-a shift-j": "workspace::SwapPaneDown",
+      "ctrl-a shift-k": "workspace::SwapPaneUp",
+      "ctrl-a shift-l": "workspace::SwapPaneRight"
+    }
+  },
+
+  // Zed's defaults claim all of these at "Editor" depth, which outranks the
+  // "Workspace" block above. Re-point the nav keys and unbind ctrl-a so the
+  // split leader above can register as a pending multi-key prefix.
+  //   ctrl-h Backspace   ctrl-j JoinLines   ctrl-k KillRingCut
+  //   ctrl-l ScrollCursorCenter             ctrl-a MoveToBeginningOfLine
+  {
+    "context": "Editor && mode == full && !menu",
+    "bindings": {
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-j": "workspace::ActivatePaneDown",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-l": "workspace::ActivatePaneRight",
+      "ctrl-a": null
+    }
+  },
+  {
+    "context": "Dock",
+    "bindings": {
+      "ctrl-w h": "workspace::ActivatePaneLeft",
+      "ctrl-w j": "workspace::ActivatePaneDown",
+      "ctrl-w k": "workspace::ActivatePaneUp",
+      "ctrl-w l": "workspace::ActivatePaneRight"
+    }
+  },
+
+  // ==========================================================================
+  // Project panel (oil.nvim-ish). Panel stays open after opening a file;
+  // close it with <leader>e or <esc>.
+  // ==========================================================================
+  {
+    "context": "ProjectPanel && not_editing",
+    "bindings": {
+      "space e": "workspace::ToggleRightDock",
+      "escape": "workspace::ToggleRightDock",
+
+      "h": "project_panel::CollapseSelectedEntry",
+      "l": "project_panel::ExpandSelectedEntry",
+      "j": "menu::SelectNext",
+      "k": "menu::SelectPrevious",
+
+      "enter": "project_panel::OpenPermanent",
+      "o": "project_panel::OpenPermanent",
+      "shift-enter": "project_panel::Open", // preview tab
+      "ctrl-v": "project_panel::OpenSplitVertical",
+      "ctrl-s": "project_panel::OpenSplitHorizontal",
+
+      "a": "project_panel::NewFile",
+      "shift-a": "project_panel::NewDirectory",
+      "r": "project_panel::Rename",
+      "d": "project_panel::Delete",
+      "shift-h": "project_panel::ToggleHideGitIgnore"
+    }
+  },
+
+  // ==========================================================================
+  // Popup menus. Not in insert mode, so j/k still type while the completion
+  // menu is open.
+  // ==========================================================================
+  {
+    "context": "Editor && mode == full && menu && vim_mode != insert",
+    "bindings": {
+      "j": "editor::ContextMenuNext",
+      "k": "editor::ContextMenuPrevious",
+      "ctrl-n": "editor::ContextMenuNext",
+      "ctrl-p": "editor::ContextMenuPrevious",
+      "ctrl-d": "editor::ContextMenuLast",
+      "ctrl-u": "editor::ContextMenuFirst",
+      "g g": "editor::ContextMenuFirst",
+      "shift-g": "editor::ContextMenuLast",
+      "escape": "editor::Cancel"
+    }
+  },
+
+  // Pickers (file finder, command palette, tab switcher, ...)
+  {
+    "context": "Picker > Editor",
+    "bindings": {
+      "ctrl-j": "menu::SelectNext",
+      "ctrl-k": "menu::SelectPrevious"
+    }
+  }
+]

@@ -1,0 +1,170 @@
+// Zed user settings. Only values that differ from Zed 1.16.3's bundled
+// default.json are listed here.
+{
+  "disable_ai": true,
+  "cli_default_open_behavior": "existing_window",
+  // Bare `zed` shows the welcome launchpad instead of an empty buffer.
+  // Trade-off: also disables restoring the previous session on startup.
+  "restore_on_startup": "launchpad",
+
+  // --- Appearance ----------------------------------------------------------
+  "theme": "Moonfly",
+  "buffer_font_family": "JetBrainsMono Nerd Font",
+  "buffer_font_size": 16,
+  "ui_font_family": "JetBrainsMono Nerd Font",
+  "ui_font_size": 15,
+  "terminal": {
+    "font_family": "JetBrainsMono Nerd Font",
+    "font_size": 16
+  },
+  // Dim inactive splits — ghostty's unfocused-split-opacity = 0.85
+  "active_pane_modifiers": {
+    "inactive_opacity": 0.85,
+    "border_size": 1.0
+  },
+
+  // --- Vim -----------------------------------------------------------------
+  "vim_mode": true,
+  "vim": {
+    "toggle_relative_line_numbers": true,
+    "use_system_clipboard": "on_yank",
+    "use_smartcase_find": true
+  },
+  "command_aliases": {
+    "W": "w",
+    "Q": "q",
+    "Wq": "wq",
+    "WQ": "wq",
+    "Qa": "qa"
+  },
+
+  // --- Editor behaviour (mirrors LazyVim options) --------------------------
+  "relative_line_numbers": "enabled",
+  "vertical_scroll_margin": 4, // scrolloff
+  "scroll_beyond_last_line": "off",
+  "cursor_blink": false,
+  "current_line_highlight": "line",
+  "tab_size": 2,
+  "preferred_line_length": 120, // stylua column_width
+  "show_wrap_guides": false,
+  "use_smartcase_search": true,
+  // Zed's real default is "off", despite what the docs page claims.
+  "format_on_save": "on",
+
+  // --- Panels (all docked right; right is already the default for project) --
+  "project_panel": {
+    "default_width": 260,
+    "auto_reveal_entries": false
+  },
+  "outline_panel": { "dock": "right" },
+  "git_panel": { "dock": "right" },
+  "collaboration_panel": { "dock": "right" },
+  "git": {
+    "inline_blame": { "enabled": false }
+  },
+
+  // --- Files ---------------------------------------------------------------
+  // Replaces Zed's default list rather than extending it, so the stock VCS/OS
+  // entries are repeated first.
+  "file_scan_exclusions": [
+    "**/.git",
+    "**/.svn",
+    "**/.hg",
+    "**/.jj",
+    "**/CVS",
+    "**/.DS_Store",
+    "**/Thumbs.db",
+    "**/.classpath",
+    "**/.settings",
+    "**/__pycache__",
+    "**/.mypy_cache",
+    "**/.pytest_cache",
+    "**/.ruff_cache",
+    "**/node_modules",
+    "**/.svelte-kit",
+    "**/.venv",
+    "**/dist",
+    "**/target"
+  ],
+  "private_files": ["**/.env*", "**/.dev.vars*", "**/local.settings.json", "**/*.pem", "**/*.key"],
+
+  // --- Oxc (oxlint + oxfmt), replacing prettier ----------------------------
+  // Mirrors lazyvim.plugins.extras.lang.typescript.oxc. The extension resolves
+  // binaries from the workspace's node_modules first, then falls back to an npm
+  // copy it manages itself.
+  //
+  // oxlint attaches to JS/JSX/TS/TSX/Vue/Astro/Svelte only; oxfmt covers the
+  // wider list used under "languages" below.
+  "auto_install_extensions": { "oxc": true },
+  "lsp": {
+    "oxlint": {
+      "initialization_options": {
+        "settings": {
+          "configPath": null, // auto-discover .oxlintrc.json
+          "run": "onType",
+          "disableNestedConfig": false,
+          "fixKind": "all", // matches the nvim extra
+          "unusedDisableDirectives": "deny"
+        }
+      }
+    },
+    "oxfmt": {
+      "initialization_options": {
+        "settings": {
+          "fmt.configPath": null, // auto-discover .oxfmtrc.json
+          "run": "onSave"
+        }
+      }
+    }
+  },
+
+  // --- Language overrides --------------------------------------------------
+  // Globals already cover tab_size 2 and format-on-save.
+  //
+  // An explicit `formatter` never invokes prettier, so no `prettier.allowed`
+  // opt-outs are needed alongside the oxfmt entries.
+  //
+  // Not routed at oxfmt: Svelte (oxfmt returns .svelte input unchanged, which
+  // would silently disable formatting) and Git Commit. Handlebars and MDX are
+  // supported by oxfmt but their language extensions aren't installed.
+  "languages": {
+    // Two-space hard breaks are meaningful; oxfmt preserves them, but Zed's own
+    // trailing-whitespace pass would not.
+    "Markdown": {
+      "remove_trailing_whitespace_on_save": false,
+      "soft_wrap": "editor_width",
+      "formatter": [{ "language_server": { "name": "oxfmt" } }]
+    },
+    "Git Commit": {
+      "remove_trailing_whitespace_on_save": false,
+      "soft_wrap": "editor_width",
+      "format_on_save": "off"
+    },
+
+    "Python": { "tab_size": 4 },
+    "Go": { "tab_size": 4, "hard_tabs": true },
+    "Makefile": { "hard_tabs": true },
+
+    // oxfmt, active now
+    "CSS": { "formatter": [{ "language_server": { "name": "oxfmt" } }] },
+    "HTML": { "formatter": [{ "language_server": { "name": "oxfmt" } }] },
+    "JavaScript": { "formatter": [{ "language_server": { "name": "oxfmt" } }] },
+    "TOML": { "formatter": [{ "language_server": { "name": "oxfmt" } }] },
+    "TSX": { "formatter": [{ "language_server": { "name": "oxfmt" } }] },
+    "TypeScript": { "formatter": [{ "language_server": { "name": "oxfmt" } }] },
+    "YAML": { "formatter": [{ "language_server": { "name": "oxfmt" } }] },
+
+    // oxfmt, inert until the matching language extension is installed
+    "GraphQL": { "formatter": [{ "language_server": { "name": "oxfmt" } }] },
+    "LESS": { "formatter": [{ "language_server": { "name": "oxfmt" } }] },
+    "SCSS": { "formatter": [{ "language_server": { "name": "oxfmt" } }] },
+    "Vue.js": { "formatter": [{ "language_server": { "name": "oxfmt" } }] },
+
+    // oxfmt adds trailing commas to JSONC/JSON5 but not plain JSON. Zed, VS
+    // Code and tsc all accept them; set {"trailingComma": "none"} in
+    // .oxfmtrc.json if a stricter consumer ever chokes.
+    "JSON": { "formatter": [{ "language_server": { "name": "oxfmt" } }] },
+    "JSON5": { "formatter": [{ "language_server": { "name": "oxfmt" } }] },
+    "JSONC": { "formatter": [{ "language_server": { "name": "oxfmt" } }] }
+  }
+}
