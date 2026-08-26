@@ -39,6 +39,7 @@ packages:
       - fish
       - fisher
       - herdr
+      - just
     casks:
       - font-jetbrains-mono-nerd-font
       - ghostty
