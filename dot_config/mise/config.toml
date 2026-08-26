@@ -11,6 +11,10 @@ pnpm = "latest"
 uv = "latest"
 poetry = "latest"
 
+# formatters
+black = "latest"
+"npm:sql-formatter" = "latest"
+
 # global npm CLI tools
 "npm:wrangler" = "latest"
 "npm:oxfmt" = "latest"
