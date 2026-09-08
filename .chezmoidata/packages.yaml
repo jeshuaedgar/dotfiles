@@ -16,6 +16,7 @@ packages:
       - btop
       - jq
       - lazygit
+      - mas
       - mise
       - neovim
       - powershell
