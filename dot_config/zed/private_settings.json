@@ -7,6 +7,7 @@
 //   * `private_files` is an ExtendingVec  -> user entries are appended
 //   * `file_scan_exclusions` is a SplicingVec -> `"..."` expands to the defaults
 {
+  "cli_default_open_behavior": "new_window",
   "agent": {
     "sandbox_permissions": {
       "allow_unsandboxed": true
