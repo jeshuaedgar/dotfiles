@@ -11,7 +11,7 @@
         "surface.background": "#080808",
         "elevated_surface.background": "#212121",
         "panel.background": "#080808",
-        "panel.focused_border": "#292929",
+        "panel.focused_border": "#4d5d8d",
         "pane.focused_border": "#292929",
         "toolbar.background": "#262626",
         "status_bar.background": "#292929",
