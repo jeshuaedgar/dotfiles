@@ -13,7 +13,7 @@ packages:
       - gd
       - gh
       - gpg
-      - htop
+      - btop
       - jq
       - lazygit
       - mise
@@ -41,6 +41,7 @@ packages:
       - herdr
       - just
       - apm
+      - yazi
     casks:
       - font-jetbrains-mono-nerd-font
       - ghostty
@@ -55,3 +56,4 @@ packages:
       - caffeine
       - radix
       - bruno
+      - jordanbaird-ice
