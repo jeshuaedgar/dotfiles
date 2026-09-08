@@ -40,11 +40,11 @@ packages:
       - fisher
       - herdr
       - just
+      - apm
     casks:
       - font-jetbrains-mono-nerd-font
       - ghostty
       - visual-studio-code
-      - docker-desktop
       - 1password
       - localsend
       - spotify
