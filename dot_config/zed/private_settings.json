@@ -35,7 +35,10 @@
   },
 
   "context_servers": {
-    "chrome-devtools-mcp-zed": { "enabled": false, "settings": {} },
+    "chrome-devtools-mcp-zed": {
+      "enabled": false,
+      "settings": {}
+    },
     "mcp-server-context7": {
       "enabled": true,
       "settings": { "context7_api_key": "" }
