@@ -1,6 +1,6 @@
 shell-integration = zsh
 font-family = JetBrains Mono
-font-size = 16
+font-size = 15
 theme = moonfly
 keybind = super+r=reload_config
 
