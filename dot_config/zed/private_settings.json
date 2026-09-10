@@ -56,6 +56,7 @@
 
   "theme": "Moonfly",
   "buffer_font_family": "JetBrainsMono Nerd Font",
+  "buffer_font_size": 15.0,
   "ui_font_family": "JetBrainsMono Nerd Font",
   "ui_font_size": 15.0,
   "terminal": {
