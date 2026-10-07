@@ -87,7 +87,7 @@
   // Leader keys (LazyVim muscle memory)
   // ==========================================================================
   {
-    "context": "(Editor && vim_mode == normal && !menu) || EmptyPane || SharedScreen",
+    "context": "((Editor && vim_mode == normal && !menu) || EmptyPane || SharedScreen || ProjectPanel || GitPanel || OutlinePanel || Terminal || AgentPanel || AcpThread || ThreadsSidebar) && !renaming",
     "bindings": {
       // find
       "space space": "file_finder::Toggle",
@@ -230,8 +230,8 @@
   {
     "context": "ProjectPanel && not_editing",
     "bindings": {
-      "space e": "workspace::ToggleRightDock",
-      "escape": "workspace::ToggleRightDock",
+      "space e": "project_panel::ToggleFocus",
+      "escape": "project_panel::ToggleFocus",
 
       "j": "menu::SelectNext",
       "k": "menu::SelectPrevious",
