@@ -43,6 +43,7 @@ packages:
       - just
       - apm
       - yazi
+      - restish
     casks:
       - font-jetbrains-mono-nerd-font
       - ghostty
