@@ -85,9 +85,25 @@
 
   // ==========================================================================
   // Leader keys (LazyVim muscle memory)
+  //
+  // A context matches any node on the dispatch path, not just the focused
+  // one. Bare `AcpThread` / `AgentPanel` / `Terminal` therefore stay live
+  // while you type in the message editor, an agent-page editor, or a
+  // terminal nested in the panel — `space` becomes a pending leader prefix
+  // (which-key, then a delay before the character lands).
+  //
+  // `!Editor && !Terminal` is load-bearing: `!` scans the whole path, so the
+  // panel clauses drop out as soon as a text field is focused. Leader still
+  // works on the panel chrome (thread list, project panel, …).
+  //
+  // `!(Editor > Editor)` is the same guard for the code editor. The Vim addon
+  // leaves the parent full Editor on the path with vim_mode == normal while a
+  // child editor is focused, so without it typing in that child still checks
+  // for the leader. `!MessageEditor` keeps the agent composer out even when it
+  // is expanded (`mode == full`) and still in normal mode.
   // ==========================================================================
   {
-    "context": "((Editor && vim_mode == normal && !menu) || EmptyPane || SharedScreen || ProjectPanel || GitPanel || OutlinePanel || Terminal || AgentPanel || AcpThread || ThreadsSidebar) && !renaming",
+    "context": "((Editor && mode == full && vim_mode == normal && !menu && !MessageEditor && !(Editor > Editor)) || ((EmptyPane || SharedScreen || (ProjectPanel && not_editing) || GitPanel || (OutlinePanel && not_editing) || AgentPanel || AcpThread || ThreadsSidebar) && !Editor && !Terminal && !MessageEditor)) && !renaming",
     "bindings": {
       // find
       "space space": "file_finder::Toggle",
@@ -173,6 +189,77 @@
       "space w =": "workspace::ResetPaneSizes",
 
       "space q q": "workspace::CloseWindow"
+    }
+  },
+
+  // The composer is a child Editor of AgentPanel / AcpThread, so a panel-level
+  // `space …` binding stays pending while you type unless each full sequence
+  // is unbound at this depth. A bare `"space": null` does not cancel them.
+  {
+    "context": "MessageEditor > Editor",
+    "bindings": {
+      "space space": null,
+      "space f f": null,
+      "space f b": null,
+      "space ,": null,
+      "space f p": null,
+      "space f r": null,
+      "space f t": null,
+      "space f n": null,
+      "space e": null,
+      "space f e": null,
+      "space /": null,
+      "space s g": null,
+      "space s w": null,
+      "space s s": null,
+      "space s shift-s": null,
+      "space s r": null,
+      "space s c": null,
+      "space s k": null,
+      "space b d": null,
+      "space b o": null,
+      "space b b": null,
+      "space `": null,
+      "space b p": null,
+      "space b shift-p": null,
+      "space c a": null,
+      "space c r": null,
+      "space c f": null,
+      "space c d": null,
+      "space c s": null,
+      "space c l": null,
+      "space x x": null,
+      "space x l": null,
+      "space u w": null,
+      "space u l": null,
+      "space u h": null,
+      "space u b": null,
+      "space u g": null,
+      "space u z": null,
+      "space u m": null,
+      "space u a": null,
+      "space u d": null,
+      "space u i": null,
+      "space u shift-l": null,
+      "space u shift-c": null,
+      "space g g": null,
+      "space g b": null,
+      "space g d": null,
+      "space g s": null,
+      "space g shift-b": null,
+      "space a a": null,
+      "space a n": null,
+      "space t t": null,
+      "space t n": null,
+      "space w v": null,
+      "space w s": null,
+      "space |": null,
+      "space -": null,
+      "space w d": null,
+      "space w w": null,
+      "space w m": null,
+      "space w =": null,
+      "space q q": null
     }
   },
 
