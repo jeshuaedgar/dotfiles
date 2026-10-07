@@ -8,3 +8,8 @@
 
 # zed prompts
 .config/zed/prompts/**
+
+# repo tooling, not a home dotfile
+README.md
+lefthook.yml
+scripts/**

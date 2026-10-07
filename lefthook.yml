@@ -1,0 +1,7 @@
+min_version: 1.10.0
+
+pre-push:
+  follow: true
+  commands:
+    validate-chezmoi:
+      run: bash scripts/validate-chezmoi.sh

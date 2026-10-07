@@ -32,3 +32,9 @@ command -v brew git curl chezmoi zsh
 command -v mise
 ssh-add -L
 ```
+
+Before push, lefthook runs `scripts/validate-chezmoi.sh` (`chezmoi doctor`, template render, and `chezmoi apply --dry-run`). Install the hook once in this repo:
+
+```bash
+lefthook install
+```
