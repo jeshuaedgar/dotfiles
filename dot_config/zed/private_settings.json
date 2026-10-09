@@ -167,6 +167,25 @@
           "run": "onSave"
         }
       }
+    },
+    "powershell-es": {
+      "settings": {
+        "powershell": {
+          "codeFormatting": {
+            "Preset": "Stroustrup",
+            "alignPropertyValuePairs": true,
+            "whitespaceBeforeOpenParen": true,
+            "whitespaceBeforeOpenBrace": true,
+            "whitespaceAroundOperator": true,
+            "whitespaceAroundSeparator": true,
+            "whitespaceBetweenParameters": true,
+            // code formatting tweaks
+            "addWhitespaceAroundPipe": true,
+            "trimWhitespaceAroundPipe": true,
+            "ignoreOneLineBlock": true
+          }
+        }
+      }
     }
   },
 
