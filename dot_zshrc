@@ -69,9 +69,8 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 # neovim
 export EDITOR='nvim'
-alias nv="nvim"
 alias vim="nvim"
-alias nvconfig="cd ~/.config/nvim/ && nvim ."
+alias gg="lazygit"
 
 # activate mise
 eval "$(mise activate zsh)"
