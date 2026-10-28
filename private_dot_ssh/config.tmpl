@@ -1,6 +1,3 @@
-Host *
-	IdentityAgent SSH_AUTH_SOCK
-
 Host github.com-work
 	HostName github.com
 	User git
@@ -25,7 +22,7 @@ Host ssh.dev.azure.com-work
 Host ssh.dev.azure.com-admin
 	HostName ssh.dev.azure.com
 	User git
-	IdentityAgent SSH_AUTH_SOCK
+	IdentityAgent "{{ if eq .chezmoi.os "darwin" }}%d/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock{{ else }}SSH_AUTH_SOCK{{ end }}"
 	IdentityFile ~/.ssh/azure-devops-work-admin.pub
 	IdentitiesOnly yes
 
